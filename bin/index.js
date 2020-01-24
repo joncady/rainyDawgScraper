@@ -17,14 +17,16 @@ const fetchStats = () => {
             let listenerIndex = data.indexOf(CURRENT_STRING) + CURRENT_STRING.length;
             let peakListenerIndex = data.indexOf("Peak Listeners: ");
             let parsedData = data.substring(listenerIndex, peakListenerIndex);
-
+            console.log(parsedData)
             firebase.database().ref("/").push({
                 listeners: Number(parsedData),
                 time: Date.now()
             })
                 .then(() => {
+                    console.log("Finished")
                     process.exit();
-                });
+                })
+                .catch((err) => console.log(err))
         })
 }
 
